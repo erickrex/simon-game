@@ -23,29 +23,37 @@
         class="color greenish right"
         data-color="greenish"
       ></div>
-      <button id="btnEmpezar" class="btn-start" onclick="startGame()">
+      <button id="startButton" class="btn-start" onclick="startGame()">
         Start game!
       </button>
     </div>
     <script>
+      const startButton = document.getElementById("startButton");
+
       const blueish = document.getElementById("blueish");
       const purpleish = document.getElementById("purpleish");
       const orangish = document.getElementById("orangish");
       const greenish = document.getElementById("greenish");
-      const startButton = document.getElementById("startButton");
 
       class Game {
         constructor() {
           this.initializeGame();
+          this.createSequence();
         }
 
         initializeGame() {
           startButton.classList.add("hide");
         }
+
+        createSequence() {
+          this.sequence = new Array(10)
+            .fill(0)
+            .map((n) => Math.floor(Math.random() * 4));
+        }
       }
 
       function startGame() {
-        var game = new Game();
+        window.game = new Game();
       }
     </script>
   </body>
