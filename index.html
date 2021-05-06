@@ -39,16 +39,57 @@
         constructor() {
           this.initializeGame();
           this.createSequence();
+          this.nextLevel();
         }
 
         initializeGame() {
           startButton.classList.add("hide");
+          this.level = 10;
+          this.colors = {
+            blueish,
+            purpleish,
+            orangish,
+            greenish,
+          };
         }
 
         createSequence() {
           this.sequence = new Array(10)
             .fill(0)
             .map((n) => Math.floor(Math.random() * 4));
+        }
+
+        nextLevel() {
+          this.turnOnSequence();
+        }
+
+        indexOfColor(number) {
+          switch (number) {
+            case 0:
+              return "blueish";
+            case 1:
+              return "purpleish";
+            case 2:
+              return "orangish";
+            case 3:
+              return "greenish";
+          }
+        }
+
+        turnOnSequence() {
+          for (let i = 0; i < this.level; i++) {
+            let color = this.indexOfColor(this.sequence[i]);
+            setTimeout(() => this.turnOnSingle(color), i * 500);
+          }
+        }
+
+        turnOnSingle(color) {
+          this.colors[color].classList.add("light");
+          setTimeout(() => this.turnOffColor(color), 400);
+        }
+
+        turnOffColor(color) {
+          this.colors[color].classList.remove("light");
         }
       }
 
