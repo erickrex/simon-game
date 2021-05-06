@@ -43,7 +43,7 @@
         }
 
         initializeGame() {
-          this.elegirColor = this.elegirColor.bind(this);
+          this.chooseColor = this.chooseColor.bind(this);
           startButton.classList.add("hide");
           this.level = 10;
           this.colors = {
@@ -95,22 +95,10 @@
         }
 
         addClickEvents() {
-          this.colors.blueish.addEventListener(
-            "click",
-            this.chooseColor.bind(this)
-          );
-          this.colors.orangish.addEventListener(
-            "click",
-            this.chooseColor.bind(this)
-          );
-          this.colors.purpleish.addEventListener(
-            "click",
-            this.chooseColor.bind(this)
-          );
-          this.colors.greenish.addEventListener(
-            "click",
-            this.chooseColor.bind(this)
-          );
+          this.colors.blueish.addEventListener("click", this.chooseColor);
+          this.colors.orangish.addEventListener("click", this.chooseColor);
+          this.colors.purpleish.addEventListener("click", this.chooseColor);
+          this.colors.greenish.addEventListener("click", this.chooseColor);
         }
 
         chooseColor(e) {
