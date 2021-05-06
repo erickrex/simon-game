@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Simon says</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="gameboard">
+      <div id="blueish" class="color blueish left" data-color="blueish"></div>
+      <div
+        id="purpleish"
+        class="color purpleish right"
+        data-color="purpleish"
+      ></div>
+      <div
+        id="orangish"
+        class="color orangish left"
+        data-color="orangish"
+      ></div>
+      <div
+        id="greenish"
+        class="color greenish right"
+        data-color="greenish"
+      ></div>
+      <button id="btnEmpezar" class="btn-start" onclick="startGame()">
+        Start game!
+      </button>
+    </div>
+    <script>
+      const blueish = document.getElementById("blueish");
+      const purpleish = document.getElementById("purpleish");
+      const orangish = document.getElementById("orangish");
+      const greenish = document.getElementById("greenish");
+      const startButton = document.getElementById("startButton");
+
+      class Game {
+        constructor() {
+          this.initializeGame();
+        }
+
+        initializeGame() {
+          startButton.classList.add("hide");
+        }
+      }
+
+      function startGame() {
+        var game = new Game();
+      }
+    </script>
+  </body>
+</html>
