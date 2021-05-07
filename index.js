@@ -4,27 +4,30 @@ const blueish = document.getElementById("blueish");
 const purpleish = document.getElementById("purpleish");
 const orangish = document.getElementById("orangish");
 const greenish = document.getElementById("greenish");
-const LAST_LEVEL = 10;
+const LAST_LEVEL = 2;
 
 class Game {
   constructor() {
     this.initializeGame();
     this.createSequence();
-    this.nextLevel();
+    setTimeout(() => this.nextLevel(), 500);
   }
-
+  //wongame -> startgame is not defined
   initializeGame() {
     this.nextLevel = this.nextLevel.bind(this);
     this.chooseColor = this.chooseColor.bind(this);
-    startButton.classList.add("hide");
+    this.toggleStart();
     this.level = 1;
-
     this.colors = {
       blueish,
       purpleish,
       orangish,
       greenish,
     };
+  }
+
+  toggleStart() {
+    startButton.classList.add("hide");
   }
 
   createSequence() {
@@ -34,7 +37,6 @@ class Game {
   }
 
   nextLevel() {
-    console.log("siguiente nivel");
     this.subLevel = 0;
     this.turnOnSequence();
     this.addClickEvents();
@@ -100,29 +102,41 @@ class Game {
     const nameColor = e.target.dataset.color;
     const numberColor = this.colorOfIndex(nameColor);
     this.turnOnSingle(nameColor);
-    console.log(this.sequence);
-    console.log("sequence " + this.sequence[this.subLevel]);
-    console.log("numberColor " + numberColor);
-    console.log("level " + this.level);
-    console.log("sublevel " + this.subLevel);
     if (numberColor === this.sequence[this.subLevel]) {
-      console.log("ko");
       this.subLevel++;
-      console.log("sublevel again  " + this.subLevel);
-
       if (this.subLevel === this.level) {
         this.level++;
         this.deleteClickEventsFromSimon();
-        console.log("sigamos");
         if (this.level === LAST_LEVEL + 1) {
-          //won
+          this.wonTheGame();
         } else {
           setTimeout(this.nextLevel, 1500);
         }
       }
     } else {
-      //lost
+      this.lostTheGame();
     }
+  }
+
+  wonTheGame() {
+    Swal.fire({
+      icon: "success",
+      title: "YES!!",
+      text: "You have won buddy!",
+      footer: "<a href>Nice one</a>",
+    }).then(this.initializeGame.bind(this));
+  }
+
+  lostTheGame() {
+    Swal.fire({
+      icon: "error",
+      title: "NEIN!!",
+      text: "You have LOST buddy!",
+      footer: "<a href>Try again</a>",
+    }).then(() => {
+      this.deleteClickEventsFromSimon();
+      this.initializeGame();
+    });
   }
 }
 
